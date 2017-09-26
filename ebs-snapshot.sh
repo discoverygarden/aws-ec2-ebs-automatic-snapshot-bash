@@ -67,6 +67,16 @@ prerequisite_check() {
 	done
 }
 
+# Function: Check for volumes to exclude from snapshots
+check_for_exclusions() {
+	exclusions=$*
+	if [ -n $exclusions]; then
+		for exclusion in $exclusions; do
+			volume_list=$($volume_list | grep $exclusions)
+		done
+	fi
+}
+
 # Function: Snapshot all volumes attached to this instance.
 snapshot_volumes() {
 	for volume_id in $volume_list; do
@@ -115,7 +125,8 @@ log_setup
 prerequisite_check
 
 # Grab all volume IDs attached to this instance
-volume_list=$(aws ec2 describe-volumes --region $region --filters Name=attachment.instance-id,Values=$instance_id --query Volumes[].VolumeId --output text)
+volume_list=$(aws ec2 describe-volumes --region $region --filters Name=attachment.instance-id,Values=$instance_id --query Volumes[].VolumeId --output text | grep -Ev $1)
 
+check_for_exclusions $*
 snapshot_volumes
 cleanup_snapshots
