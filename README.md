@@ -95,3 +95,8 @@ To manually test the script:
 ```
 sudo /opt/aws/ebs-snapshot.sh
 ```
+
+One or more volumes can be excluded from snapshots by listing them after the script name as follows:
+```
+sudo /opt/aws/ebs-snapshot.sh vol-6a9f5324 vol-749f533a vol-559f5217
+```
