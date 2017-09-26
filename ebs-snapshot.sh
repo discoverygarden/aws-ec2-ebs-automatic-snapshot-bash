@@ -70,7 +70,7 @@ prerequisite_check() {
 # Function: Check for volumes to exclude from snapshots
 check_for_exclusions() {
 	exclusions=$*
-	if [ ! -z $exclusions ]; then
+	if [ -n "$exclusions" ]; then
 		for exclusion in $exclusions; do
 			volume_list=$(echo $volume_list | sed -e "s/$exclusion//")
 		done
