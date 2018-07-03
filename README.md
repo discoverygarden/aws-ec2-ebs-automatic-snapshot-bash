@@ -3,10 +3,6 @@ aws-ec2-ebs-automatic-snapshot-bash
 
 #### Bash script for Automatic EBS Snapshots and Cleanup on Amazon Web Services (AWS)
 
-Written by  **[AWS Consultants - Casey Labs Inc.] (http://www.caseylabs.com)**
-
-*Contact us for all your Amazon Web Services consulting needs!*
-
 ===================================
 
 **How it works:**
@@ -15,8 +11,6 @@ ebs-snapshot.sh will:
 - Gather a list of all volume IDs attached to that instance
 - Take a snapshot of each attached volume
 - The script will then delete all associated snapshots taken by the script that are older than 7 days
-
-Pull requests greatly welcomed!
 
 ===================================
 
