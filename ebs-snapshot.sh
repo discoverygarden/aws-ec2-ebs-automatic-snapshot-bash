@@ -20,7 +20,7 @@ set -o pipefail
 # - Take a snapshot of each attached volume
 # - The script will then delete all associated snapshots taken by the script that are older than 7 days
 #
-# DISCLAIMER: This script deletes snapshots (though only the ones that it creates). 
+# DISCLAIMER: This script deletes snapshots (though only the ones that it creates).
 # Make sure that you understand how the script works. No responsibility accepted in event of accidental data loss.
 #
 
@@ -67,6 +67,16 @@ prerequisite_check() {
 	done
 }
 
+# Function: Check for volumes to exclude from snapshots
+check_for_exclusions() {
+	exclusions=$*
+	if [ -n "$exclusions" ]; then
+		for exclusion in $exclusions; do
+			volume_list=$(echo $volume_list | sed -e "s/$exclusion//")
+		done
+	fi
+}
+
 # Function: Snapshot all volumes attached to this instance.
 snapshot_volumes() {
 	for volume_id in $volume_list; do
@@ -80,7 +90,7 @@ snapshot_volumes() {
 
 		snapshot_id=$(aws ec2 create-snapshot --region $region --output=text --description $snapshot_description --volume-id $volume_id --query SnapshotId)
 		log "New snapshot is $snapshot_id"
-	 
+
 		# Add a "CreatedBy:AutomatedBackup" tag to the resulting snapshot.
 		# Why? Because we only want to purge snapshots taken by the script later, and not delete snapshots manually taken.
 		aws ec2 create-tags --region $region --resource $snapshot_id --tags Key=CreatedBy,Value=AutomatedBackup
@@ -106,7 +116,7 @@ cleanup_snapshots() {
 			fi
 		done
 	done
-}	
+}
 
 
 ## SCRIPT COMMANDS ##
@@ -117,5 +127,6 @@ prerequisite_check
 # Grab all volume IDs attached to this instance
 volume_list=$(aws ec2 describe-volumes --region $region --filters Name=attachment.instance-id,Values=$instance_id --query Volumes[].VolumeId --output text)
 
+check_for_exclusions $*
 snapshot_volumes
 cleanup_snapshots
