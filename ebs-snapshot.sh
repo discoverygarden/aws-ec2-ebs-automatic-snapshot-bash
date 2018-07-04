@@ -8,9 +8,7 @@ set -o pipefail
 
 ## Automatic EBS Volume Snapshot Creation & Clean-Up Script
 #
-# Written by Casey Labs Inc. (https://www.caseylabs.com)
-# Contact us for all your Amazon Web Services Consulting needs!
-# Script Github repo: https://github.com/CaseyLabs/aws-ec2-ebs-automatic-snapshot-bash
+# Originally written by Casey Labs Inc. (https://www.caseylabs.com)
 #
 # Additonal credits: Log function by Alan Franzoni; Pre-req check by Colin Johnson
 #

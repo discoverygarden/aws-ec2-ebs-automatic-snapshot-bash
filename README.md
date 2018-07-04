@@ -1,11 +1,9 @@
 aws-ec2-ebs-automatic-snapshot-bash
 ===================================
 
-#### Bash script for Automatic EBS Snapshots and Cleanup on Amazon Web Services (AWS)
+## Bash script for Automatic EBS Snapshots and Cleanup on Amazon Web Services (AWS)
 
-Written by  **[AWS Consultants - Casey Labs Inc.] (http://www.caseylabs.com)**
-
-*Contact us for all your Amazon Web Services consulting needs!*
+Originally written by  **[AWS Consultants - Casey Labs Inc.] (http://www.caseylabs.com)**
 
 ===================================
 
@@ -15,8 +13,6 @@ ebs-snapshot.sh will:
 - Gather a list of all volume IDs attached to that instance
 - Take a snapshot of each attached volume
 - The script will then delete all associated snapshots taken by the script that are older than 7 days
-
-Pull requests greatly welcomed!
 
 ===================================
 
@@ -76,7 +72,7 @@ Default output format: (Enter "text".)```
 **Install Script**: Download the latest version of the snapshot script and make it executable:
 ```
 cd ~
-wget https://raw.githubusercontent.com/CaseyLabs/aws-ec2-ebs-automatic-snapshot-bash/master/ebs-snapshot.sh
+wget https://raw.githubusercontent.com/discoverygarden/aws-ec2-ebs-automatic-snapshot-bash/master/ebs-snapshot.sh
 chmod +x ebs-snapshot.sh
 mkdir -p /opt/aws
 sudo mv ebs-snapshot.sh /opt/aws/
@@ -100,3 +96,22 @@ One or more volumes can be excluded from snapshots by listing them after the scr
 ```
 sudo /opt/aws/ebs-snapshot.sh vol-6a9f5324 vol-749f533a vol-559f5217
 ```
+## Troubleshooting/Issues
+
+Having problems or solved a problem? Contact
+[discoverygarden](http://support.discoverygarden.ca).
+
+## Maintainers/Sponsors
+
+Current maintainers:
+
+* [discoverygarden](http://www.discoverygarden.ca)
+
+## Development
+
+If you would like to contribute to this module, please contact
+[discoverygarden](http://support.discoverygarden.ca).
+
+## License
+
+[GPLv2](http://www.gnu.org/licenses/gpl-2.0.txt)
