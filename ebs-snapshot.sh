@@ -31,7 +31,7 @@ region=$(wget -q -O- http://169.254.169.254/latest/meta-data/placement/availabil
 
 # Set Logging Options
 logfile="/var/log/ebs-snapshot.log"
-logfile_max_lines="5000"
+logfile_max_lines="50000"
 
 # How many days do you wish to retain backups for? Default: 7 days
 retention_days="7"
