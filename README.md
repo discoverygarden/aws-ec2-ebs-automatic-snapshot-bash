@@ -79,6 +79,7 @@ sudo mv ebs-snapshot.sh /opt/aws/
 ```
 
 You should then setup a cron job in order to schedule a nightly backup. Example crontab jobs:
+
 ```
 55 22 * * * root  AWS_CONFIG_FILE="/root/.aws/config" /opt/aws/ebs-snapshot.sh
 
@@ -87,15 +88,27 @@ AWS_CONFIG_FILE="/root/.aws/config"
 55 22 * * * root  /opt/aws/ebs-snapshot.sh
 ```
 
+### Important
+It is **highly** recommended to wrap the above commands with a call to mail to notify someone in the event of a failure. 
+(ensure that mail works from the command line of thesever)
+```
+55 22 * * * root  AWS_CONFIG_FILE="/root/.aws/config" /opt/aws/ebs-snapshot.sh || \
+                  tail -n20 /var/log/ebs-snapshot.log | \
+                  mail -s "Backup failed for `uname -n`"  noreplysys@discoverygarden.ca
+```
+
 To manually test the script:
+
 ```
 sudo /opt/aws/ebs-snapshot.sh
 ```
 
 One or more volumes can be excluded from snapshots by listing them after the script name as follows:
+
 ```
 sudo /opt/aws/ebs-snapshot.sh vol-6a9f5324 vol-749f533a vol-559f5217
 ```
+ 
 ## Troubleshooting/Issues
 
 Having problems or solved a problem? Contact
